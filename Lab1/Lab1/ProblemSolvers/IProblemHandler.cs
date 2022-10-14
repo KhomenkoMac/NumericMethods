@@ -1,0 +1,6 @@
+﻿
+
+interface IProblemHandler
+{
+    void HandleProblem();
+}
