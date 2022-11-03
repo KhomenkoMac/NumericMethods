@@ -9,10 +9,14 @@ class LobachevskyiMethod
     private static double[] Normalize(double[] array)
     {
         double[] res = new double[array.Length];
+        
+        var norm = Math.Sqrt( array.Sum(x => Math.Pow(x, 2)) );
+        
         for (int i = 0; i < array.Length; i++)
         {
-            res[i] = array[i] / 50;
+            res[i] = array[i] / norm;
         }
+
         return res;
     }
 
@@ -20,7 +24,7 @@ class LobachevskyiMethod
     {
         for (int i = 0; i < old.Length; i++)
         {
-            double diff = Math.Abs(Math.Pow(old[i], 2) - _new[i]);
+            double diff = Math.Abs(Math.Pow(old[i], 2) / _new[i]);
             if (diff > defaultPrecision)
             {
                 return false;
@@ -48,7 +52,7 @@ class LobachevskyiMethod
                 }
                 b[k] = Math.Pow(a[k], 2) + 2 * sum;
             }
-            Array.Copy(Normalize(b), a, b.Length);
+            Array.Copy(b, a, b.Length);
         }
 
         double[] res = new double[b.Length - 1];
